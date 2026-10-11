@@ -1,0 +1,28 @@
+name: Node.js CI
+
+# Defines when the workflow will run
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Defines the automated jobs
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Runs on a fresh GitHub-hosted Linux runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Downloads your code to the runner
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4 # Installs Node.js
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install # Installs packages from package.json
+
+    - name: Run automated tests
+      run: npm test # Runs the test script from package.json
